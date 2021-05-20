@@ -2,7 +2,11 @@ import * as React from "react";
 import Svg, { SvgProps, Path } from "react-native-svg";
 import { Colors } from "../styles";
 
-const Crosshair = (props: SvgProps) => {
+interface CrosshairProps {
+  props: SvgProps;
+}
+
+const Crosshair: React.FC<CrosshairProps> = ({ props }: CrosshairProps) => {
   return (
     <Svg
       //xmlns="http://www.w3.org/2000/svg"

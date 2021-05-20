@@ -1,46 +1,35 @@
-import * as Location from 'expo-location';
-import React, { useCallback, useState } from 'react'
-import Fab from './Fab';
+import * as Location from "expo-location";
+import React, { useCallback, useState } from "react";
+import Fab from "./Fab";
 
 interface LocationFabProps {
-    onPress: (location: Location.LocationObject) => void;
+  onPress: (location: Location.LocationObject) => void;
 }
 
 const LocationFab: React.FC<LocationFabProps> = ({
-    onPress
-}) => {
+  onPress,
+}: LocationFabProps) => {
+  const [getting, setGetting] = useState(false);
 
-    const [getting, setGetting] = useState(false)
+  const location = useCallback(async () => {
+    setGetting(true);
+    let location: Location.LocationObject = {} as Location.LocationObject;
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.warn("Permission to access location was denied");
+        return;
+      }
 
-    const location = useCallback(
-        async () => {
-            setGetting(true);
-            let location: Location.LocationObject = {} as Location.LocationObject;
-            try {
+      location = await Location.getCurrentPositionAsync({});
+    } catch (error) {
+      console.error("on request permission");
+    }
+    setGetting(false);
+    onPress(location);
+  }, []);
 
-                let { status } = await Location.requestForegroundPermissionsAsync();
-                if (status !== 'granted') {
-                    console.warn('Permission to access location was denied');
-                    return;
-                }
+  return <Fab iconName="crosshairs-gps" onPress={location} loading={getting} />;
+};
 
-                location = await Location.getCurrentPositionAsync({});
-            } catch (error) {
-                console.error("on request permission");
-            }
-            setGetting(false);
-            onPress(location);
-        },
-        [],
-    );
-
-    return (
-        <Fab
-            iconName="crosshairs-gps"
-            onPress={location}
-            loading={getting}
-        />
-    )
-}
-
-export default LocationFab
+export default LocationFab;

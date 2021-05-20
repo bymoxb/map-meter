@@ -1,17 +1,15 @@
 import { IArea } from "../models";
 import * as fs from "expo-file-system";
 
-export const hexToRGB = (hex: string) => {
+export const hexToRGB = (hex: string): string => {
   if (hex.charAt(0) === "#") {
     hex = hex.substr(1);
   }
   if (hex.length < 2 || hex.length > 6) {
-    return false;
+    return "0,0,0";
   }
-  var values = hex.split(""),
-    r,
-    g,
-    b;
+  const values = hex.split("");
+  let r, g, b;
 
   if (hex.length === 2) {
     r = parseInt(values[0].toString() + values[1].toString(), 16);
@@ -26,14 +24,14 @@ export const hexToRGB = (hex: string) => {
     g = parseInt(values[2].toString() + values[3].toString(), 16);
     b = parseInt(values[4].toString() + values[5].toString(), 16);
   } else {
-    return false;
+    return "0,0,0";
   }
   const rgb = [r, g, b];
 
   return rgb.toString();
 };
 
-export const round = (value: number, nDecimal = 5) => {
+export const round = (value: number, nDecimal = 5): number => {
   const base = Math.pow(10, nDecimal);
   return Math.round(value * base) / base;
 };

@@ -24,7 +24,7 @@ const Fab: React.FC<FabProps> = ({
   loading,
   size = 70,
   iconName = "cursor-default",
-}) => {
+}: FabProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}

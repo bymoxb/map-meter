@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight } from "react-native";
+import { View } from "react-native";
 
 import { Colors } from "../../styles";
 import { hexToRGB } from "../../libs";
@@ -13,7 +13,7 @@ interface EditBarProps {
   }[];
 }
 
-const EditBar: React.FC<EditBarProps> = ({ items }) => {
+const EditBar: React.FC<EditBarProps> = ({ items }: EditBarProps) => {
   return (
     <View
       style={{

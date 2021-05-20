@@ -1,6 +1,6 @@
 enum IconFamily {
-    FontAwesome,
-    MaterialIcons
+  FontAwesome,
+  MaterialIcons,
 }
 
 export default IconFamily;

@@ -45,7 +45,7 @@ const initialState: IArea = {
   unidadPerimetro: unitsDistance[0],
 };
 
-const AreaScreen = () => {
+const AreaScreen: React.FC = () => {
   const [visibleModalMT, setVisibleModalMT] = useState(false);
   const [tipo, setTipo] = useState<TipoMedicion>();
   const [seleccion, setSeleccion] = useState<IArea>(initialState);
@@ -93,7 +93,9 @@ const AreaScreen = () => {
           const pn = items[index + 1];
 
           peri += getPreciseDistance(pi, pn);
-        } catch (error) {}
+        } catch (error) {
+          //
+        }
       }
       peri += getPreciseDistance(items[0], items[items.length - 1]);
     }
@@ -124,8 +126,8 @@ const AreaScreen = () => {
   };
 
   const redo = () => {
-    let _undoList = [...undoList];
-    let list = [...seleccion.puntos];
+    const _undoList = [...undoList];
+    const list = [...seleccion.puntos];
 
     const item = _undoList.pop();
 
@@ -230,7 +232,7 @@ const AreaScreen = () => {
   const save = async () => {
     const result = await saveAsGeoJson(seleccion, "polygon");
 
-    var message = "";
+    let message = "";
     if (result) {
       message = I18n.t("messages.saved");
     } else {

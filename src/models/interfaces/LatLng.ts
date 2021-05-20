@@ -1,8 +1,8 @@
-import { LatLng as LatLngBase } from 'react-native-maps';
+import { LatLng as LatLngBase } from "react-native-maps";
 
 interface LatLng extends LatLngBase {
-    id: number,
-    selected: boolean
+  id: number;
+  selected: boolean;
 }
 
 export default LatLng;
