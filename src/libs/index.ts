@@ -1,4 +1,4 @@
-import { IArea } from "../models";
+import { IArea, IDistance, LatLng } from "../models";
 import * as fs from "expo-file-system";
 
 export const hexToRGB = (hex: string): string => {
@@ -37,7 +37,7 @@ export const round = (value: number, nDecimal = 5): number => {
 };
 
 export const saveAsGeoJson = async (
-  seleccion: IArea,
+  seleccion: IArea | IDistance,
   type: "polygon" | "line"
 ): Promise<boolean> => {
   if (seleccion.puntos.length < 1) {
@@ -59,16 +59,16 @@ export const saveAsGeoJson = async (
     "utf8"
   );
 
-  const data =
+  const payload =
     type === "polygon"
-      ? parsePolygonToGeoJSON(seleccion)
-      : parseLineToGeoJSON(seleccion);
+      ? parsePolygonToGeoJSON(seleccion as IArea)
+      : parseLineToGeoJSON(seleccion as IDistance);
 
-  await fs.StorageAccessFramework.writeAsStringAsync(path, data, {
+  await fs.StorageAccessFramework.writeAsStringAsync(path, payload, {
     encoding: fs.EncodingType.UTF8,
   });
 
-  console.log(data);
+  console.log(payload);
 
   return true;
 };
@@ -104,4 +104,35 @@ const parsePolygonToGeoJSON = (seleccion: IArea): string => {
     null,
     4
   );
+};
+
+export const undoItems = (
+  seleccion: LatLng[],
+  undoList: LatLng[]
+): LatLng[] => {
+  let items = [...seleccion];
+  const item = items.pop();
+  if (!item) {
+    items = [];
+  } else {
+    undoList.push(item);
+  }
+
+  return items;
+};
+
+export const redoItems = (
+  seleccion: LatLng[],
+  undoList: LatLng[]
+): LatLng[][] => {
+  const list = [...seleccion];
+  const _undoList = [...undoList];
+
+  const item = _undoList.pop();
+
+  if (item) {
+    list.push(item);
+  }
+
+  return [list, _undoList];
 };

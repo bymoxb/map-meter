@@ -3,19 +3,12 @@ import Svg, { SvgProps, Path } from "react-native-svg";
 import { Colors } from "../styles";
 
 interface CrosshairProps {
-  props: SvgProps;
+  props?: SvgProps;
 }
 
 const Crosshair: React.FC<CrosshairProps> = ({ props }: CrosshairProps) => {
   return (
-    <Svg
-      //xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 140 140"
-      width={100}
-      height={100}
-      //style={{ borderWidth: 1 }}
-      {...props}
-    >
+    <Svg viewBox="0 0 140 140" width={100} height={100} {...props}>
       <Path
         d="M136.18 71.3H5.25M70.717 5.833v130.93m32.2-65.466c0 17.784-14.417 32.2-32.2 32.2-17.784 0-32.2-14.417-32.2-32.2 0-17.784 14.417-32.2 32.2-32.2 17.784 0 32.2 14.417 32.2 32.2z"
         stroke={Colors.RED[500]}

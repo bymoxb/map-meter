@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createRef, useCallback, useState } from "react";
 import * as Location from "expo-location";
 import { View, StyleSheet, ToastAndroid } from "react-native";
 import * as Animatable from "react-native-animatable";
@@ -18,8 +18,8 @@ import {
 } from "geolib";
 
 import I18n from "./../i18n";
-import { Colors } from "../styles";
-import { hexToRGB, round, saveAsGeoJson } from "../libs";
+import { Colors, Styles } from "../styles";
+import { hexToRGB, redoItems, round, saveAsGeoJson, undoItems } from "../libs";
 import EditBar from "../components/EditBar/EditBar";
 import LayersFab from "../components/Fab/LayersFab";
 import Dropdown from "../components/Dropdown/Dropdown";
@@ -114,29 +114,13 @@ const AreaScreen: React.FC = () => {
   };
 
   const undo = () => {
-    let items = [...seleccion.puntos];
-    const item = items.pop();
-    if (!item) {
-      items = [];
-    } else {
-      undoList.push(item);
-    }
-
-    makeCalcs(items);
+    makeCalcs(undoItems(seleccion.puntos, undoList));
   };
 
   const redo = () => {
-    const _undoList = [...undoList];
-    const list = [...seleccion.puntos];
-
-    const item = _undoList.pop();
-
-    if (item) {
-      list.push(item);
-    }
-
-    setUndoList(_undoList);
-    makeCalcs(list);
+    const lists = redoItems(seleccion.puntos, undoList);
+    makeCalcs(lists[0]);
+    setUndoList(lists[1]);
   };
 
   const clean = () => {
@@ -242,6 +226,12 @@ const AreaScreen: React.FC = () => {
     ToastAndroid.show(message, ToastAndroid.SHORT);
   };
 
+  const [isMapReady, setMapReady] = useState(false);
+
+  const handleMapReady = useCallback(() => {
+    setMapReady(true);
+  }, [setMapReady]);
+
   return (
     <View style={{ flex: 1 }}>
       <MeasureTypeModal
@@ -252,11 +242,12 @@ const AreaScreen: React.FC = () => {
 
       {/* MAP */}
       <MapView
+        onMapReady={handleMapReady}
         loadingEnabled
         followsUserLocation={false}
         showsUserLocation
         mapType={mapLayer}
-        style={styles.map}
+        style={isMapReady ? styles.map : {}}
         onRegionChangeComplete={(region_) => setRegion(region_)}
         onPress={({ nativeEvent: { coordinate } }) => {
           if (tipo === TipoMedicion.preciso) {
@@ -446,17 +437,6 @@ const AreaScreen: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  floatContainerWrap: {
-    position: "absolute",
-  },
-  floatContainer: {
-    position: "absolute",
-    width: "100%",
-  },
-  map: {
-    flex: 1,
-  },
-});
+const styles = StyleSheet.create(Styles.Main);
 
 export default AreaScreen;
