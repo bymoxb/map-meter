@@ -1,4 +1,4 @@
-import IArea from "./interfaces/ICoordenada";
+import IArea from "./interfaces/IArea";
 import IconFamily from "./types/IconFamily";
 import IUnitsArea from "./interfaces/IUnitsArea";
 import IUnitDistance from "./interfaces/IUnitDistance";
