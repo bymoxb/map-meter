@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import AreaScreen from "../screens/AreaScreen";
+import DistanceScreen from "../screens/DistanceScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -15,6 +16,7 @@ const Navigator: React.FC = () => {
         initialRouteName="AreaScreen"
       >
         <Drawer.Screen name="AreaScreen" component={AreaScreen} />
+        <Drawer.Screen name="DistanceScreen" component={DistanceScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

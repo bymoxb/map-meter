@@ -32,6 +32,10 @@ export const hexToRGB = (hex: string): string => {
 };
 
 export const round = (value: number, nDecimal = 5): number => {
+  if (value % 1 === 0) {
+    return value;
+  }
+
   const base = Math.pow(10, nDecimal);
   return Math.round(value * base) / base;
 };
@@ -73,8 +77,28 @@ export const saveAsGeoJson = async (
   return true;
 };
 
-const parseLineToGeoJSON = (seleccion: IArea): string => {
-  return "";
+const parseLineToGeoJSON = (seleccion: IDistance): string => {
+  return JSON.stringify(
+    {
+      type: "LineString",
+      properties: {
+        distance: {
+          value: seleccion.distancia,
+          units: {
+            name: seleccion.unidadDistancia.name,
+            symbol: seleccion.unidadDistancia.symbol,
+          },
+        },
+      },
+      coordinates: seleccion.puntos.map((item) => [
+        item.longitude,
+        item.latitude,
+      ]),
+    },
+
+    null,
+    4
+  );
 };
 
 const parsePolygonToGeoJSON = (seleccion: IArea): string => {
