@@ -10,6 +10,7 @@ import EditBar from "../components/EditBar/EditBar";
 import Fab from "../components/Fab/Fab";
 import LayersFab from "../components/Fab/LayersFab";
 import MeasureTypeModal from "../components/Modals/MeasureTypeModal";
+import { useTheme } from "../context/ThemeProvider";
 import { hexToRGB, saveAsGeoJson, undoItems, redoItems, round } from "../libs";
 import {
   IDistance,
@@ -18,7 +19,7 @@ import {
   TipoMedicion,
   unitsDistance,
 } from "../models";
-import { Colors, Styles } from "../styles";
+import { Colors, MapStyle, Styles } from "../styles";
 
 const initialState: IDistance = {
   distancia: 0,
@@ -27,6 +28,8 @@ const initialState: IDistance = {
 };
 
 const DistanceScreen: React.FC = () => {
+  const { theme } = useTheme();
+
   const [isMapReady, setMapReady] = useState(false);
   const [tipo, setTipo] = useState<TipoMedicion>();
   const [visibleModalMT, setVisibleModalMT] = useState(false);
@@ -144,6 +147,7 @@ const DistanceScreen: React.FC = () => {
       <MapView
         loadingEnabled
         showsUserLocation
+        customMapStyle={theme === "light" ? [] : MapStyle}
         mapType={layer}
         onMapReady={handleMapReady}
         style={isMapReady ? styles.map : {}}

@@ -1,13 +1,15 @@
-import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeProvider } from "./src/context/ThemeProvider";
 
-import Navigator from './src/router/Navigator'
+import Navigator from "./src/router/Navigator";
 
 export default function App() {
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Navigator />
+      <ThemeProvider>
+        <Navigator />
+      </ThemeProvider>
     </SafeAreaView>
   );
 }

@@ -1,4 +1,13 @@
 export const WHITE = "#FFF";
+export const BLACK = "#000";
+
+export const DarkForest = {
+  100: "#A1A69C",
+  200: "#6E7371",
+  300: "#343A40",
+  400: "#1A1E26",
+  500: "#08090D",
+};
 
 export const RED = {
   50: "#FEF2F2",

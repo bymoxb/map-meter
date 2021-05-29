@@ -18,7 +18,7 @@ import {
 } from "geolib";
 
 import I18n from "./../i18n";
-import { Colors, Styles } from "../styles";
+import { Colors, MapStyle, Styles } from "../styles";
 import { hexToRGB, redoItems, round, saveAsGeoJson, undoItems } from "../libs";
 import EditBar from "../components/EditBar/EditBar";
 import LayersFab from "../components/Fab/LayersFab";
@@ -34,8 +34,8 @@ import {
   unitsArea,
   unitsDistance,
 } from "../models/";
-import Crosshair from "../libs/Crosshair";
 import Fab from "../components/Fab/Fab";
+import { useTheme } from "../context/ThemeProvider";
 
 const initialState: IArea = {
   area: 0.0,
@@ -46,6 +46,7 @@ const initialState: IArea = {
 };
 
 const AreaScreen: React.FC = () => {
+  const { theme } = useTheme();
   const [visibleModalMT, setVisibleModalMT] = useState(false);
   const [tipo, setTipo] = useState<TipoMedicion>();
   const [seleccion, setSeleccion] = useState<IArea>(initialState);
@@ -242,9 +243,10 @@ const AreaScreen: React.FC = () => {
 
       {/* MAP */}
       <MapView
-        onMapReady={handleMapReady}
         loadingEnabled
         followsUserLocation={false}
+        customMapStyle={theme === "light" ? [] : MapStyle}
+        onMapReady={handleMapReady}
         showsUserLocation
         mapType={mapLayer}
         style={isMapReady ? styles.map : {}}
@@ -323,7 +325,11 @@ const AreaScreen: React.FC = () => {
             alignItems: "center",
           }}
         >
-          <Crosshair />
+          <Icon
+            name="crosshairs"
+            size={20}
+            color={mapLayer == "standard" ? "black" : "white"}
+          />
           {/* <Icon name="crosshairs" size={100} /> */}
         </View>
       )}

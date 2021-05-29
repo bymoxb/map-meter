@@ -4,14 +4,16 @@ import React, { useState } from "react";
 import {
   Modal,
   Pressable,
+  StyleSheet,
   Text,
   TouchableHighlight,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { useTheme } from "../../context/ThemeProvider";
 import { hexToRGB } from "../../libs";
 import { IDistance, IUnitDistance, unitsDistance } from "../../models";
-import { Colors } from "../../styles";
+import { Colors, Styles } from "../../styles";
 
 interface DropdownDistanceProps {
   seleccion: IDistance;
@@ -22,49 +24,57 @@ const DropdownDistance: React.FC<DropdownDistanceProps> = ({
   seleccion,
   onSelectDistancia,
 }: DropdownDistanceProps) => {
+  const { theme } = useTheme();
+
   const [visibleDropdown, setVisibleDropdown] = useState(false);
+  const _styles = StyleSheet.create({
+    modalBodyContainer: {
+      backgroundColor: theme == "light" ? "white" : Colors.DarkForest[300],
+    },
+    container: {
+      backgroundColor: theme == "light" ? "white" : Colors.DarkForest[300],
+      borderColor: theme == "light" ? Colors.GRAY[300] : "black",
+    },
+    text: {
+      color: theme == "light" ? "black" : Colors.GRAY[200],
+    },
+    textOption: {
+      color: theme == "light" ? "black" : Colors.GRAY[200],
+      textAlign: "center",
+    },
+  });
 
   return (
     <>
-      <View
-        style={{
-          flex: 1,
-          height: 50,
-          borderWidth: 2,
-          borderRadius: 50 / 2,
-          alignItems: "center",
-          flexDirection: "row",
-          paddingHorizontal: 20,
-          backgroundColor: "white",
-          justifyContent: "center",
-          borderColor: Colors.GRAY[300],
-        }}
+      <TouchableHighlight
+        underlayColor={theme == "light" ? Colors.GRAY[300] : Colors.GRAY[700]}
+        onPress={() => setVisibleDropdown(true)}
+        style={[styles.container, _styles.container]}
       >
-        <View>
-          <Text style={{ fontWeight: "bold", textAlign: "right" }}>
-            {I18n.t("labels.distance")}
-          </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: 20,
+            justifyContent: "center",
+          }}
+        >
+          <View style={{ justifyContent: "center" }}>
+            <Text style={[styles.textLeft, _styles.text]}>
+              {I18n.t("labels.distance")}
+            </Text>
+          </View>
+          <View style={{ flex: 1, marginLeft: 5, justifyContent: "center" }}>
+            <Text style={_styles.text}>
+              {`${seleccion.distancia} ${seleccion.unidadDistancia.symbol}`}
+            </Text>
+          </View>
+          <View>
+            <View style={styles.dropDown}>
+              <Icon name="chevron-down" size={26} />
+            </View>
+          </View>
         </View>
-        <View style={{ flex: 1, marginLeft: 5 }}>
-          <Text>{`${seleccion.distancia} ${seleccion.unidadDistancia.symbol}`}</Text>
-        </View>
-        <View>
-          <TouchableHighlight
-            underlayColor={Colors.GRAY[300]}
-            onPress={() => setVisibleDropdown(true)}
-            style={{
-              borderWidth: 2,
-              borderRadius: 5,
-              alignItems: "center",
-              justifyContent: "center",
-              borderColor: Colors.GRAY[300],
-              backgroundColor: `rgba(${hexToRGB(Colors.GRAY[300])},0.3)`,
-            }}
-          >
-            <Icon name="chevron-down" size={26} />
-          </TouchableHighlight>
-        </View>
-      </View>
+      </TouchableHighlight>
       <Modal
         visible={visibleDropdown}
         transparent={true}
@@ -72,38 +82,17 @@ const DropdownDistance: React.FC<DropdownDistanceProps> = ({
         onRequestClose={() => setVisibleDropdown(false)}
       >
         <TouchableWithoutFeedback onPress={() => setVisibleDropdown(false)}>
-          <View
-            style={{
-              flex: 1,
-              paddingTop: 60 + 38,
-              alignItems: "center",
-            }}
-          >
+          <View style={styles.modalContainer}>
             <TouchableWithoutFeedback
               onPress={() => {
                 //
               }}
             >
               <View
-                style={{
-                  margin: 20,
-                  padding: 15,
-                  borderRadius: 10,
-                  backgroundColor: "white",
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 5,
-                  width: "90%",
-                  flexDirection: "row",
-                }}
+                style={[styles.modalBodyContainer, _styles.modalBodyContainer]}
               >
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+                  <Text style={[styles.textTitle, _styles.text]}>
                     {I18n.t("labels.distance")}
                   </Text>
                   {unitsDistance.map((item, index) => (
@@ -113,16 +102,11 @@ const DropdownDistance: React.FC<DropdownDistanceProps> = ({
                         onSelectDistancia(item);
                         setVisibleDropdown(false);
                       }}
-                      style={{
-                        marginHorizontal: 5,
-                        paddingVertical: 8,
-                        borderBottomWidth: 0.5,
-                        borderBottomColor: Colors.GRAY[300],
-                      }}
+                      style={styles.optionButton}
                     >
-                      <Text
-                        style={{ textAlign: "center" }}
-                      >{`${item.name} (${item.symbol})`}</Text>
+                      <Text style={_styles.textOption}>
+                        {`${item.name} (${item.symbol})`}
+                      </Text>
                     </Pressable>
                   ))}
                 </View>
@@ -134,5 +118,7 @@ const DropdownDistance: React.FC<DropdownDistanceProps> = ({
     </>
   );
 };
+
+const styles = StyleSheet.create(Styles.Dropdown);
 
 export default DropdownDistance;

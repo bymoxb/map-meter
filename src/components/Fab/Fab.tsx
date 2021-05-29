@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.RED[500],
+    backgroundColor: Colors.DarkForest[400],
   },
 });
 

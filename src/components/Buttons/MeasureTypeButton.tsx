@@ -7,6 +7,7 @@ import IconMI from "@expo/vector-icons/MaterialIcons";
 import { IconFamily } from "../../models";
 import { Colors } from "../../styles";
 import { hexToRGB } from "../../libs";
+import { useTheme } from "../../context/ThemeProvider";
 
 interface MeasureTypeButtonProps {
   text: string;
@@ -23,12 +24,32 @@ const MeasureTypeButton: React.FC<MeasureTypeButtonProps> = ({
   iconName,
   iconFamily,
 }: MeasureTypeButtonProps) => {
+  const { theme } = useTheme();
+
+  const _styles = StyleSheet.create({
+    textOption: {
+      color: theme == "light" ? Colors.DarkForest[300] : "white",
+    },
+  });
+
   const drawIcon = () => {
     switch (iconFamily) {
       case IconFamily.FontAwesome:
-        return <IconFA name={iconName} size={iconSize} />;
+        return (
+          <IconFA
+            name={iconName}
+            size={iconSize}
+            color={_styles.textOption.color}
+          />
+        );
       case IconFamily.MaterialIcons:
-        return <IconMI name={iconName} size={iconSize} />;
+        return (
+          <IconMI
+            name={iconName}
+            size={iconSize}
+            color={_styles.textOption.color}
+          />
+        );
       default:
         break;
     }
@@ -43,7 +64,7 @@ const MeasureTypeButton: React.FC<MeasureTypeButtonProps> = ({
       <View style={styles.row}>
         <View style={styles.iconContainer}>{drawIcon()}</View>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>{text}</Text>
+          <Text style={[styles.text, _styles.textOption]}>{text}</Text>
         </View>
       </View>
     </TouchableHighlight>

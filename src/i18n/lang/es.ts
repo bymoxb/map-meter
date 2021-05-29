@@ -39,4 +39,15 @@ export default {
     in: { key: "in", symbol: "in", name: "Pulgadas" },
     yd: { key: "yd", symbol: "yd", name: "Yardas " },
   },
+  screens: {
+    titles: {
+      area: "Medir áreas",
+      distance: "Medir distancias",
+      theme: "Tema",
+    },
+  },
+  theme: {
+    dark: "Tema oscuro",
+    light: "Tema claro",
+  },
 };

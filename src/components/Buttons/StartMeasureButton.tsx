@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     margin: 30,
     height: size,
     borderRadius: size,
-    backgroundColor: Colors.RED[500],
+    backgroundColor: Colors.DarkForest[300],
     justifyContent: "center",
   },
   textButton: {

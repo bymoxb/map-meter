@@ -2,13 +2,14 @@ import React from "react";
 import {
   Modal,
   StyleSheet,
-  View,
   TouchableWithoutFeedback,
+  View,
 } from "react-native";
-
-import I18n from "./../../i18n";
+import { useTheme } from "../../context/ThemeProvider";
 import { IconFamily, TipoMedicion } from "../../models";
+import { Colors } from "../../styles";
 import MeasureTypeButton from "../Buttons/MeasureTypeButton";
+import I18n from "./../../i18n";
 
 interface MeasureTypeModalProps {
   visible: boolean;
@@ -21,6 +22,8 @@ const MeasureTypeModal: React.FC<MeasureTypeModalProps> = ({
   closeModal,
   onPress,
 }: MeasureTypeModalProps) => {
+  const { theme } = useTheme();
+
   const handleOnPress = (tipo: TipoMedicion) => {
     closeModal();
     onPress(tipo);
@@ -55,7 +58,15 @@ const MeasureTypeModal: React.FC<MeasureTypeModalProps> = ({
               //
             }}
           >
-            <View style={styles.modalView}>
+            <View
+              style={[
+                styles.modalView,
+                {
+                  backgroundColor:
+                    theme == "light" ? "white" : Colors.DarkForest[300],
+                },
+              ]}
+            >
               {items.map((item, index) => (
                 <MeasureTypeButton
                   key={index}
@@ -84,7 +95,6 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 15,
     borderRadius: 10,
-    backgroundColor: "white",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {

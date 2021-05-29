@@ -39,4 +39,15 @@ export default {
     in: { key: "in", symbol: "in", name: "Inches" },
     yd: { key: "yd", symbol: "yd", name: "Yards" },
   },
+  screens: {
+    titles: {
+      area: "Measure areas",
+      distance: "Measure distances",
+      tema: "Theme",
+    },
+  },
+  theme: {
+    dark: "Dark mode",
+    light: "Light mode",
+  },
 };
