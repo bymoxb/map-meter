@@ -2,6 +2,7 @@ import I18n from "i18n-js";
 import React from "react";
 import AreaScreen from "../screens/AreaScreen";
 import DistanceScreen from "../screens/DistanceScreen";
+import InfoScreen from "../screens/InfoScreen";
 
 interface Screen {
   path: string;
@@ -31,6 +32,15 @@ export const screens: Screen[] = [
     component: AreaScreen,
     icon: {
       name: "draw-polygon",
+      family: "FontAwesome5",
+    },
+  },
+  {
+    path: "InfoScreen",
+    label: I18n.t("screens.titles.info"),
+    component: InfoScreen,
+    icon: {
+      name: "info",
       family: "FontAwesome5",
     },
   },

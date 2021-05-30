@@ -14,10 +14,12 @@ export default {
     area: "Área",
     distance: "Distancia",
     perimeter: "Perímetro",
+    sponsors: "Patrocinadores",
   },
   messages: {
     saved: "El archivo ha sido guardado",
     error_on_save: "No se pudo guardar el archivo",
+    coffee: "Invítame un café",
   },
   units_area: {
     a: { key: "a", symbol: "a", name: "Área" },
@@ -44,6 +46,7 @@ export default {
       area: "Medir áreas",
       distance: "Medir distancias",
       theme: "Tema",
+      info: "Acerca",
     },
   },
   theme: {
