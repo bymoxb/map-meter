@@ -1,19 +1,17 @@
 import * as React from "react";
-import { Linking } from "react-native";
-import Svg, { Path, Rect, SvgProps } from "react-native-svg";
+import Svg, { Path, Rect } from "react-native-svg";
 
-interface DigitalOceanBadgeProps {
+interface DigitalOceanProps {
   width?: number;
   height?: number;
 }
 
-const DigitalOceanBadge: React.FC<DigitalOceanBadgeProps> = ({
+const DigitalOcean: React.FC<DigitalOceanProps> = ({
   width = 350,
   height = 200,
-}: DigitalOceanBadgeProps) => {
+}: DigitalOceanProps) => {
   return (
     <Svg
-      onPress={() => Linking.openURL("https://m.do.co/c/c088a55413a2")}
       width={width}
       height={height}
       viewBox="0 0 200 65"
@@ -42,4 +40,4 @@ const DigitalOceanBadge: React.FC<DigitalOceanBadgeProps> = ({
   );
 };
 
-export default DigitalOceanBadge;
+export default DigitalOcean;

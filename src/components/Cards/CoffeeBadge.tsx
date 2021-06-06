@@ -1,5 +1,7 @@
+import I18n from "i18n-js";
 import React from "react";
 import { Image, TouchableHighlight, Linking } from "react-native";
+import BaseInfoCard from "./BaseInfoCard";
 
 interface CoffeeBadgeProps {
   width?: number;
@@ -8,20 +10,21 @@ interface CoffeeBadgeProps {
 
 const CoffeeBadge: React.FC<CoffeeBadgeProps> = ({
   width = 350,
-  height = 200,
+  height = 150,
 }: CoffeeBadgeProps) => {
   return (
-    <TouchableHighlight
-      onPress={() => Linking.openURL("https://www.buymeacoffee.com/bymoxb")}
+    <BaseInfoCard
+      title={I18n.t("messages.coffee")}
+      link="https://www.buymeacoffee.com/bymoxb"
     >
       <Image
         style={{ width: width, height: height }}
         width={width}
         height={height}
         resizeMode="stretch"
-        source={require("./img/coffe.jpg")}
+        source={require("../../assets/img/coffe.jpg")}
       />
-    </TouchableHighlight>
+    </BaseInfoCard>
   );
 };
 

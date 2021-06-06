@@ -15,11 +15,13 @@ export default {
     distance: "Distance",
     perimeter: "Perimeter",
     sponsors: "Sponsors",
+    source_code: "Source Code",
   },
   messages: {
     saved: "The file have been saved",
     error_on_save: "The file could not be saved",
     coffee: "Buy me a coffe",
+    tap_on_image: "Tap on each image",
   },
   units_area: {
     a: { key: "a", symbol: "a", name: "Area" },
@@ -45,7 +47,7 @@ export default {
     titles: {
       area: "Measure areas",
       distance: "Measure distances",
-      tema: "Theme",
+      theme: "Theme",
       info: "Info",
     },
   },

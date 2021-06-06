@@ -7,7 +7,7 @@ import {
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Switch } from "react-native-paper";
-import Logo from "../../assets/Logo";
+import Logo from "../../assets/svg/Logo";
 import { useTheme } from "../../context/ThemeProvider";
 import { screens } from "../../router/routes";
 import { Colors } from "../../styles";

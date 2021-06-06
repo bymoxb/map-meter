@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { Colors } from ".";
 import { hexToRGB } from "../libs";
+import * as Colors from "./colors";
 
 export const Main = StyleSheet.create({
   main: {

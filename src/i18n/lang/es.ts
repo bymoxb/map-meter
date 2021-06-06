@@ -15,11 +15,13 @@ export default {
     distance: "Distancia",
     perimeter: "Perímetro",
     sponsors: "Patrocinadores",
+    source_code: "Código fuente",
   },
   messages: {
     saved: "El archivo ha sido guardado",
     error_on_save: "No se pudo guardar el archivo",
     coffee: "Invítame un café",
+    tap_on_image: "Presiona sobre cada imagen",
   },
   units_area: {
     a: { key: "a", symbol: "a", name: "Área" },

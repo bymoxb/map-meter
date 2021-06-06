@@ -40,7 +40,7 @@ export const screens: Screen[] = [
     label: I18n.t("screens.titles.info"),
     component: InfoScreen,
     icon: {
-      name: "info",
+      name: "info-circle",
       family: "FontAwesome5",
     },
   },

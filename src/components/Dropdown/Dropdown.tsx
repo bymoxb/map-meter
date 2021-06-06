@@ -84,7 +84,7 @@ const Dropdown: React.FC<DropdownProps> = ({
               style={_styles.text}
             >{`${seleccion.perimetro} ${seleccion.unidadPerimetro.symbol}`}</Text>
           </View>
-          <View style={styles.dropDown}>
+          <View style={[styles.dropDown, _styles.container]}>
             <Icon name="chevron-down" size={26} />
           </View>
         </View>
