@@ -13,8 +13,6 @@ import { screens } from "../../router/routes";
 import { Colors } from "../../styles";
 import I18n from "./../../i18n/index";
 
-const size = 120;
-
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const { theme, setTheme } = useTheme();
 
@@ -69,21 +67,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
       >
         <View style={styles.drawerContent}>
           <View style={styles.headerContainer}>
-            {/* <View> */}
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "white",
-                width: size,
-                height: size,
-                borderRadius: size / 2,
-                //backgroundColor: "white",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Logo size={size * 0.75} />
-            </View>
+            <Logo />
           </View>
 
           <View style={[styles.bodyContainer]}>

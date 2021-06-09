@@ -1,41 +1,40 @@
-import React, { createRef, useCallback, useState } from "react";
-import * as Location from "expo-location";
-import { View, StyleSheet, ToastAndroid } from "react-native";
-import * as Animatable from "react-native-animatable";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import StartMeasureButton from "../components/Buttons/StartMeasureButton";
+import * as Location from "expo-location";
+import {
+  convertArea,
+  convertDistance,
+  getAreaOfPolygon,
+  getPreciseDistance,
+} from "geolib";
+import React, { useCallback, useState } from "react";
+import { StyleSheet, ToastAndroid, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 import MapView, {
+  LatLng as LatLngBase,
   Marker,
   Polygon,
   Region,
-  LatLng as LatLngBase,
 } from "react-native-maps";
-import {
-  getAreaOfPolygon,
-  convertArea,
-  getPreciseDistance,
-  convertDistance,
-} from "geolib";
-
-import I18n from "./../i18n";
-import { Colors, MapStyle, Styles } from "../styles";
-import { hexToRGB, redoItems, round, saveAsGeoJson, undoItems } from "../libs";
-import EditBar from "../components/EditBar/EditBar";
-import LayersFab from "../components/Fab/LayersFab";
+import StartMeasureButton from "../components/Buttons/StartMeasureButton";
 import Dropdown from "../components/Dropdown/Dropdown";
+import EditBar from "../components/EditBar/EditBar";
+import Fab from "../components/Fab/Fab";
+import LayersFab from "../components/Fab/LayersFab";
 import MeasureTypeModal from "../components/Modals/MeasureTypeModal";
+import { useTheme } from "../context/ThemeProvider";
+import { hexToRGB, redoItems, round, saveAsGeoJson, undoItems } from "../libs";
 import {
   IArea,
   IUnitDistance,
   IUnitsArea,
+  LatLng,
   TipoMedicion,
   UnitsArea,
-  LatLng,
   unitsArea,
   unitsDistance,
 } from "../models/";
-import Fab from "../components/Fab/Fab";
-import { useTheme } from "../context/ThemeProvider";
+import { Colors, MapStyle, Styles } from "../styles";
+import I18n from "./../i18n";
 
 const initialState: IArea = {
   area: 0.0,

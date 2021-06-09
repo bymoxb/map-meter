@@ -1,5 +1,6 @@
-import { IArea, IDistance, LatLng } from "../models";
 import * as fs from "expo-file-system";
+import * as Location from "expo-location";
+import { IArea, IDistance, LatLng } from "../models";
 
 export const hexToRGB = (hex: string): string => {
   if (hex.charAt(0) === "#") {
@@ -159,4 +160,19 @@ export const redoItems = (
   }
 
   return [list, _undoList];
+};
+
+export const requestLocation = async (): Promise<boolean> => {
+  try {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.warn("Permission to access location was denied");
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("on request permission");
+    return false;
+  }
 };

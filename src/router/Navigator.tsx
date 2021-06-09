@@ -1,28 +1,37 @@
-import "react-native-gesture-handler";
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-
+import { NavigationContainer } from "@react-navigation/native";
+import * as React from "react";
+import { StatusBar, StyleSheet } from "react-native";
+import "react-native-gesture-handler";
 import DrawerContent from "../components/DrawerContent/DrawerContent";
-import { screens } from "./routes";
-import { Colors } from "../styles";
 import { useTheme } from "../context/ThemeProvider";
+import { Colors } from "../styles";
+import { screens } from "./routes";
 
 const Drawer = createDrawerNavigator();
 
 const Navigator: React.FC = () => {
   const { theme } = useTheme();
 
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor:
+        theme === "light" ? Colors.WHITE : Colors.DarkForest[500],
+    },
+  });
+
   return (
     <NavigationContainer>
+      <StatusBar
+        backgroundColor={styles.container.backgroundColor}
+        barStyle={theme === "dark" ? "light-content" : "dark-content"}
+      />
+
       <Drawer.Navigator
         screenOptions={{
           headerShown: true,
           headerTintColor: theme === "light" ? Colors.BLACK : Colors.WHITE,
-          headerStyle: {
-            backgroundColor:
-              theme === "light" ? Colors.WHITE : Colors.DarkForest[500],
-          },
+          headerStyle: styles.container,
         }}
         drawerContent={(props) => <DrawerContent {...props} />}
       >

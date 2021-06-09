@@ -2,7 +2,7 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { convertDistance, getPreciseDistance } from "geolib";
 import I18n from "i18n-js";
 import React, { useCallback, useState } from "react";
-import { StyleSheet, Text, ToastAndroid, View } from "react-native";
+import { StyleSheet, ToastAndroid, View } from "react-native";
 import MapView, { Marker, Polyline, Region } from "react-native-maps";
 import StartMeasureButton from "../components/Buttons/StartMeasureButton";
 import DropdownDistance from "../components/Dropdown/DropdownDistance";
@@ -11,7 +11,7 @@ import Fab from "../components/Fab/Fab";
 import LayersFab from "../components/Fab/LayersFab";
 import MeasureTypeModal from "../components/Modals/MeasureTypeModal";
 import { useTheme } from "../context/ThemeProvider";
-import { hexToRGB, saveAsGeoJson, undoItems, redoItems, round } from "../libs";
+import { hexToRGB, redoItems, round, saveAsGeoJson, undoItems } from "../libs";
 import {
   IDistance,
   IUnitDistance,
